@@ -11,6 +11,10 @@ var executing = false;
 var duration = 500;
 var delay = ms => new Promise(r => setTimeout(r, ms));
 
+if (location.search) {
+    duration = location.search.replace(/\D+/, "") * 1 || duration;
+}
+
 with (EventTarget) prototype.on = prototype.addEventListener;
 location.hash = "#cell-0";
 
@@ -46,7 +50,7 @@ async function execute() {
     var dataPointer = 0;
 
     for (var commandPointer = 0; commandPointer < script.length; commandPointer++) {
-        await delay(duration);
+        duration && await delay(duration);
 
         scriptContent.focus();
         scriptContent.selectionStart = commandPointer;
