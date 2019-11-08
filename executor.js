@@ -127,7 +127,7 @@ async function execute() {
 window.on("keydown", e => {
     var { ctrlKey, keyCode } = e;
 
-    if (ctrlKey && [83, 90, 93].indexOf(keyCode) > -1) {
+    if (ctrlKey && keyCode == 83) {
         e.preventDefault();
         if (startButton.innerText == "start") execute();
         else executing = false;
