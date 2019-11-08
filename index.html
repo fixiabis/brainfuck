@@ -92,10 +92,8 @@
             }
         }
 
-        #start {
+        button {
             position: fixed;
-            bottom: 0;
-            right: 0;
             width: 80px;
             height: 40px;
             background-color: #666;
@@ -104,6 +102,16 @@
             justify-content: center;
             border: none;
             outline: none;
+            bottom: 0;
+        }
+
+        #start {
+            right: 0;
+        }
+
+        #insert {
+            right: 80px;
+            background-color: #888;
         }
 
         @media (max-width: 800px) {
@@ -119,6 +127,7 @@
     <div id="cells"></div>
     <textarea id="script"></textarea>
     <textarea id="output"></textarea>
+    <button id="insert">insert</button>
     <button id="start">start</button>
     <script src="./executor.js"></script>
 </body>

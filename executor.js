@@ -4,9 +4,11 @@ var cellContainer = document.querySelector("#cells");
 var scriptContent = document.querySelector("#script");
 var outputContent = document.querySelector("#output");
 var startButton = document.querySelector("#start");
+var insertButton = document.querySelector("#insert");
+var inputChars = [];
 var executed = true;
 var executing = false;
-var duration = 100;
+var duration = 500;
 var delay = ms => new Promise(r => setTimeout(r, ms));
 
 with (EventTarget) prototype.on = prototype.addEventListener;
@@ -72,15 +74,19 @@ async function execute() {
                 location.hash = `#cell-${dataPointer}`;
                 break;
             case ",":
-                var char = prompt("input one char, cancel can input code");
+                var char = inputChars.pop() || prompt("input one char, cancel can input code");
 
-                if (char === null) char = prompt("input code: (0-255)") * 1;
-                else char = char.charCodeAt();
+                if (char === null) {
+                    char = prompt("input code: (0-255)");
+                    if (char === null) char = 255;
+                    else char *= 1;
+                } else char = char.charCodeAt();
 
                 cells[dataPointer] = char;
                 cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
                 break;
             case ".":
+                console.log(cells[dataPointer]);
                 outputContent.value += String.fromCharCode(cells[dataPointer]);
                 break;
             case "[":
@@ -113,6 +119,13 @@ async function execute() {
                     }
                 }
                 break;
+            default:
+                for (var i = commandPointer + 1; i < script.length; i++) {
+                    if (["+", "-", ">", "<", ",", ".", "[", "]"].indexOf(script[i]) > -1) {
+                        commandPointer = i - 1;
+                        break;
+                    }
+                }
         }
 
         if (!executing) break;
@@ -127,14 +140,29 @@ async function execute() {
 window.on("keydown", e => {
     var { ctrlKey, keyCode } = e;
 
-    if (ctrlKey && keyCode == 83) {
-        e.preventDefault();
-        if (startButton.innerText == "start") execute();
-        else executing = false;
+    if (ctrlKey) {
+        switch (keyCode) {
+            case 83:
+                e.preventDefault();
+                if (startButton.innerText == "start") execute();
+                else executing = false;
+                break;
+            case 45:
+                inputChars = prompt("default input chars");
+                if (inputChars) inputChars = inputChars.split("").reverse();
+                else inputChars = [];
+                break;
+        }
     }
 });
 
 startButton.on("click", e => {
     if (startButton.innerText == "stop") executing = false;
     else execute();
+});
+
+insertButton.on("click", e => {
+    inputChars = prompt("default input chars");
+    if (inputChars) inputChars = inputChars.split("").reverse();
+    else inputChars = [];
 });
