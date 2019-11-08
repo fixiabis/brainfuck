@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Brainfuck</title>
+    <style>
+        body {
+            margin: 0px;
+            color: #eee;
+            background: #222;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        * {
+            font-size: 20px;
+            font-family: monospace !important;
+        }
+
+        textarea {
+            padding: 10px;
+            box-sizing: border-box;
+            color: #eee;
+            resize: none;
+            outline: none;
+            border: none;
+            width: 50%;
+            height: calc(100vh - 41px);
+        }
+
+        #script {
+            background: #333;
+        }
+
+        #output {
+            background: #222;
+        }
+
+        #script::selection {
+            color: #222;
+            background-color: #eee;
+        }
+
+        #cells {
+            user-select: none;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            overflow: auto;
+            border-bottom: solid #888 1px;
+            width: 100%;
+            height: 40px;
+            scroll-behavior: smooth;
+        }
+
+        #cells::-webkit-scrollbar,
+        #cells::-webkit-scrollbar-thumb,
+        #cells::-webkit-scrollbar-button,
+        #cells::-webkit-scrollbar-track,
+        #cells::-webkit-scrollbar-track-piece {
+            width: 0px;
+            height: 0px;
+        }
+
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            /* animation: fade-in 1s; */
+        }
+
+        .cell:nth-child(2n) {
+            background: #333;
+        }
+
+        .cell:target {
+            color: orange;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+        }
+
+        #start {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 40px;
+            background-color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            outline: none;
+        }
+
+        @media (max-width: 800px) {
+            textarea {
+                width: 100%;
+                height: calc((100vh - 41px) / 2);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cells"></div>
+    <textarea id="script"></textarea>
+    <textarea id="output"></textarea>
+    <button id="start">start</button>
+    <script src="./executor.js"></script>
+</body>
+
+</html>
