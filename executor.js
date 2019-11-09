@@ -11,6 +11,8 @@ var executing = false;
 var duration = 500;
 var delay = ms => new Promise(r => setTimeout(r, ms));
 
+script.value = "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.";
+
 if (location.search) {
     duration = location.search.replace(/\D+/, "") * 1 || duration;
 }
