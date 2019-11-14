@@ -54,30 +54,30 @@ async function execute() {
     for (var commandPointer = 0; commandPointer < script.length; commandPointer++) {
         duration && await delay(duration);
 
-        scriptContent.focus();
-        scriptContent.selectionStart = commandPointer;
-        scriptContent.selectionEnd = commandPointer + 1;
+        duration && scriptContent.focus();
+        duration && scriptContent.selectionStart = commandPointer;
+        duration && scriptContent.selectionEnd = commandPointer + 1;
 
         switch (script[commandPointer]) {
             case "+":
                 cells[dataPointer]++;
-                cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
+                duration && cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
                 break;
             case "-":
                 cells[dataPointer]--;
-                cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
+                duration && cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
                 break;
             case ">":
-                cellContainer.childNodes[dataPointer].className = "cell";
+                duration && cellContainer.childNodes[dataPointer].className = "cell";
                 dataPointer++;
                 // cellContainer.childNodes[dataPointer].className = "cell active";
-                location.hash = `#cell-${dataPointer}`;
+                duration && location.hash = `#cell-${dataPointer}`;
                 break;
             case "<":
-                cellContainer.childNodes[dataPointer].className = "cell";
+                duration && cellContainer.childNodes[dataPointer].className = "cell";
                 dataPointer--;
                 // cellContainer.childNodes[dataPointer].className = "cell active";
-                location.hash = `#cell-${dataPointer}`;
+                duration && location.hash = `#cell-${dataPointer}`;
                 break;
             case ",":
                 var char = inputChars.pop() || prompt("input one char, cancel can input code");
@@ -89,10 +89,9 @@ async function execute() {
                 } else char = char.charCodeAt();
 
                 cells[dataPointer] = char;
-                cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
+                duration && cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
                 break;
             case ".":
-                console.log(cells[dataPointer]);
                 outputContent.value += String.fromCharCode(cells[dataPointer]);
                 break;
             case "[":
