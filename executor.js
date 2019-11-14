@@ -18,7 +18,7 @@ if (location.search) {
 }
 
 with (EventTarget) prototype.on = prototype.addEventListener;
-location.hash = "#cell-0";
+// location.hash = "#cell-0";
 
 [...cells].map((v, i) =>
     Object.assign(document.createElement("div"), {
@@ -46,38 +46,38 @@ async function execute() {
         cellContainer.childNodes[i].className = "cell";
     });
 
-    // cellContainer.childNodes[0].className = "cell active";
-    location.hash = "#cell-0";
+    cellContainer.childNodes[0].className = "cell active";
+    // location.hash = "#cell-0";
 
     var dataPointer = 0;
 
     for (var commandPointer = 0; commandPointer < script.length; commandPointer++) {
-        duration && await delay(duration);
+        if (duration) await delay(duration);
 
-        duration && scriptContent.focus();
-        duration && scriptContent.selectionStart = commandPointer;
-        duration && scriptContent.selectionEnd = commandPointer + 1;
+        if (duration) scriptContent.focus();
+        if (duration) scriptContent.selectionStart = commandPointer;
+        if (duration) scriptContent.selectionEnd = commandPointer + 1;
 
         switch (script[commandPointer]) {
             case "+":
                 cells[dataPointer]++;
-                duration && cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
+                if (duration) cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
                 break;
             case "-":
                 cells[dataPointer]--;
-                duration && cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
+                if (duration) cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
                 break;
             case ">":
-                duration && cellContainer.childNodes[dataPointer].className = "cell";
+                if (duration) cellContainer.childNodes[dataPointer].className = "cell";
                 dataPointer++;
-                // cellContainer.childNodes[dataPointer].className = "cell active";
-                duration && location.hash = `#cell-${dataPointer}`;
+                if (duration) cellContainer.childNodes[dataPointer].className = "cell active";
+                // location.hash = `#cell-${dataPointer}`;
                 break;
             case "<":
-                duration && cellContainer.childNodes[dataPointer].className = "cell";
+                if (duration) cellContainer.childNodes[dataPointer].className = "cell";
                 dataPointer--;
-                // cellContainer.childNodes[dataPointer].className = "cell active";
-                duration && location.hash = `#cell-${dataPointer}`;
+                if (duration) cellContainer.childNodes[dataPointer].className = "cell active";
+                // location.hash = `#cell-${dataPointer}`;
                 break;
             case ",":
                 var char = inputChars.pop() || prompt("input one char, cancel can input code");
@@ -89,7 +89,7 @@ async function execute() {
                 } else char = char.charCodeAt();
 
                 cells[dataPointer] = char;
-                duration && cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
+                if (duration) cellContainer.childNodes[dataPointer].innerText = cells[dataPointer];
                 break;
             case ".":
                 outputContent.value += String.fromCharCode(cells[dataPointer]);
