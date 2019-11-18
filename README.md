@@ -1,3 +1,3 @@
 # brainfuck-debugger
 
-try debugger here: https://fixiabis.github.io/brainfuck-bugger
+try debugger here: https://fixiabis.github.io/brainfuck-debugger
